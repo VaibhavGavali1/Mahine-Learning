@@ -1,0 +1,24 @@
+//On the Iris data set, perform KNN Algorithm and Discuss the Results
+import pandas as pd
+iris=pd.read_csv("/content/iris.csv")
+iris.dtypes
+iris.columns
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+feature_names = ['Sepal.Length', 'Sepal.Width', 'Petal.Length', 'Petal.Width']
+x=iris[feature_names]
+y=iris['Species']
+x_train,x_test,y_train,y_test=train_test_split(x,y,random_state=0)
+print(x_train[:3]) #to Check the Output
+scaler=MinMaxScaler()
+x_train=scaler.fit_transform(x_train)
+x_test=scaler.transform(x_test)
+print("\nAfter scaling\n")
+print(x_train[:3]) #to check the output
+from sklearn.neighbors import KNeighborsClassifier
+knn=KNeighborsClassifier()
+knn.fit(x_train,y_train)
+#print score of train data
+print('Accuracy of KNN classifier on traning set:{:.2f}'.format(knn.score(x_train,y_train)))
+#print score of test data
+print('Accuracy of KNN classifier on traning set:{:.2f}'.format(knn.score(x_test,y_test)))
